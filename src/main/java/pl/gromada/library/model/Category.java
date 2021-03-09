@@ -1,13 +1,15 @@
 package pl.gromada.library.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 public class Category {
 
@@ -18,4 +20,8 @@ public class Category {
     @Column(unique = true)
     private String name;
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

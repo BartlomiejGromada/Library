@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/css.css}">
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+<div class="container">
+    <header>
+        <h1>Books</h1>
+    </header>
+    <a type="button" class="btn btn-primary" th:href="@{/books/addBookForm}" id="addButton">Add book</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">IdBook</th>
+            <th scope="col">Isbn</th>
+            <th scope="col">Title</th>
+            <th scope="col">Categories</th>
+            <th scope="col">Authors</th>
+            <th scope="col">Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book :${books}" th:object="${book}">
+            <th scope="row" th:text="*{idBook}">1</th>
+            <td th:text="*{isbn}">1234567856756</td>
+            <td th:text="*{title}">Harry Potter</td>
+            <td th:text="*{categories}">Drama</td>
+            <td th:text="*{authors}">J.K. Rowling</td>
+            <td>
+                <a type="button" class="btn btn-warning" th:href="@{/updateForm/{id} (id=${book.idBook})}">Update</a>
+                <a type="button" class="btn btn-danger" th:href="@{/delete/{idBook} (idBook=${book.idBook})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-secondary alert-dismissible fade show" role="alert" th:if="${message}">
+        <p th:text="${message}">Message</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" th:href="@{books(page=${pages[0]})}">First</a></li>
+            <li th:each="page :${pages}" th:class="(${page} == ${currentPage+1}) ?'page-item active' : 'page-item'">
+                <a th:class="page-link" th:href="@{/books(page=${page})}" th:text="${page}">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" th:href="@{/books(page=${pages.size()})}">Last</a></li>
+        </ul>
+    </nav>
+</div>
+<div th:replace="js_scripts :: js_script"></div>
+</body>
+</html>

@@ -1,7 +1,6 @@
 package pl.gromada.library.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
-import java.util.Date;
+import java.sql.Date;
 
-@Data
+
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 public class Author {
 
@@ -25,4 +28,9 @@ public class Author {
     private String lastName;
     @Past
     private Date dateOfBirth;
+
+    @Override
+    public String toString() {
+        return firstName + " "+lastName;
+    }
 }

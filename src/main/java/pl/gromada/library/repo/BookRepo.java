@@ -6,4 +6,5 @@ import pl.gromada.library.model.Book;
 
 @Repository
 public interface BookRepo extends JpaRepository<Book, Long> {
+
 }

@@ -1,16 +1,16 @@
 package pl.gromada.library.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.HashSet;
-import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 public class Book {
 
@@ -23,18 +23,22 @@ public class Book {
     private String isbn;
     @NotBlank
     private String title;
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
-    @JoinTable(
-            name = "book_category",
-            joinColumns = @JoinColumn(name = "id_book"),
-            inverseJoinColumns = @JoinColumn(name = "id_category"))
-    private Set<Category> categories = new HashSet<>();
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
-    @JoinTable(
-            name = "book_author",
-            joinColumns = @JoinColumn(name = "id_book"),
-            inverseJoinColumns = @JoinColumn(name = "id_author"))
-    private Set<Author> authors = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "id_category")
+    private Category category;
+    @ManyToOne
+    @JoinColumn(name = "id_author")
+    private Author author;
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "idBook=" + idBook +
+                ", isbn='" + isbn + '\'' +
+                ", title='" + title + '\'' +
+                ", category=" + category +
+                ", author=" + author +
+                '}';
+    }
 
 }

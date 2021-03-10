@@ -1,20 +1,20 @@
 package pl.gromada.library.model;
 
 import lombok.*;
+import net.bytebuddy.implementation.bind.annotation.Empty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @EqualsAndHashCode
 @Entity
 public class Author {
@@ -22,15 +22,18 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAuthor;
-    @NotBlank
+    @NotBlank(message = "{pl.gromada.model.Author.firstName.message}")
     private String firstName;
-    @NotBlank
+    @NotBlank(message = "{pl.gromada.model.Author.lastName.message}")
     private String lastName;
-    @Past
-    private Date dateOfBirth;
+    @NotBlank(message = "{pl.gromada.model.Author.dateOfBirth.message}")
+    private String dateOfBirth;
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Book> books = new ArrayList<>();
 
     @Override
     public String toString() {
-        return firstName + " "+lastName;
+        return firstName + " " + lastName;
     }
+
 }

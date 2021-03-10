@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Books</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/css.css}">
+<head th:replace="styles :: styles">
 </head>
 <body>
 <div th:replace="navbar :: navbar"></div>
@@ -30,11 +25,11 @@
             <th scope="row" th:text="*{idBook}">1</th>
             <td th:text="*{isbn}">1234567856756</td>
             <td th:text="*{title}">Harry Potter</td>
-            <td th:text="*{categories}">Drama</td>
-            <td th:text="*{authors}">J.K. Rowling</td>
+            <td th:text="*{category}">Drama</td>
+            <td th:text="*{author}">J.K. Rowling</td>
             <td>
-                <a type="button" class="btn btn-warning" th:href="@{/updateForm/{id} (id=${book.idBook})}">Update</a>
-                <a type="button" class="btn btn-danger" th:href="@{/delete/{idBook} (idBook=${book.idBook})}">Delete</a>
+                <a type="button" class="btn btn-warning" th:href="@{/books/updateForm/{id} (id=${book.idBook})}">Update</a>
+                <a type="button" class="btn btn-danger" th:href="@{/books/delete/{idBook} (idBook=${book.idBook})}">Delete</a>
             </td>
         </tr>
         </tbody>

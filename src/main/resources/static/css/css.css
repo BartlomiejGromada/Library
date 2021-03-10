@@ -11,7 +11,7 @@ footer {
 }
 
 .container {
-    min-height: 89%;
+    height: 89%;
 }
 
 table {
@@ -24,4 +24,19 @@ table {
     position: absolute;
     right: 22%;
     top: 5%;
+}
+
+.nav-item {
+    font-size: 15px;
+}
+
+.nav-item.active {
+    font-weight: bold;
+}
+
+.valid-error {
+    color: red;
+    font-weight: bold;;
+    margin: 5px;
+    font-size: 12px;
 }

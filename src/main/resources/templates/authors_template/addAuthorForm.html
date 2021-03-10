@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="styles :: styles">
+    <meta charset="UTF-8">
+    <title>Add author</title>
+</head>
+<body>
+<div th:replace="navbar :: navbar"></div>
+<div class="container">
+    <h1>Add author</h1>
+    <form th:object="${author}" th:method="post" action="#" th:action="@{/authors/addForm}">
+        <div class="form-group">
+            <label for="firstName">Firstname</label>
+            <input type="text" class="form-control" id="firstName" th:name="firstName" placeholder="Enter firstname"/>
+            <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="valid-error">Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Lastname</label>
+            <input type="text" class="form-control" id="lastName" th:name="lastName" placeholder="Enter lastname"/>
+            <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="valid-error">LastName Error</p>
+        </div>
+        <div class="form-group">
+            <label for="dateOfBirth">DateOfBirth</label>
+            <input type="date" class="form-control" id="dateOfBirth" th:name="dateOfBirth"/>
+            <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="valid-error">DateOfBirth errors</p>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>
+<div th:replace="js_scripts :: js_script"></div>
+</body>
+</html>

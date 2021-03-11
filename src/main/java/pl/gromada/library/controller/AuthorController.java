@@ -31,7 +31,7 @@ public class AuthorController {
 
     @GetMapping
     public String allAuthors(@RequestParam Optional<Integer> page, Model model) {
-        currentPage = page.orElse(1) - 1;
+        currentPage = page.orElse(1);
         Page<Author> authors = authorService.findAllAuthors(currentPage);
         model.addAttribute("authors", authors);
         model.addAttribute("currentPage", currentPage);
@@ -54,10 +54,9 @@ public class AuthorController {
             authorService.addAuthor(author);
             redirectAttributes.addFlashAttribute("message", "Author with id: " + author.getIdAuthor()
                     + " has benn added");
-            redirectAttributes.addAttribute("page", currentPage + 1);
+            redirectAttributes.addAttribute("page", currentPage);;
             return "redirect:/authors";
         }
-
         return "/authors_template/addAuthorForm";
     }
 
@@ -74,10 +73,9 @@ public class AuthorController {
             authorService.updateAuthor(author);
             redirectAttributes.addFlashAttribute("message", "Author with id: " + author.getIdAuthor()
                     + " has been updated");
-            redirectAttributes.addAttribute("page", currentPage + 1);
+            redirectAttributes.addAttribute("page", currentPage);
             return "redirect:/authors";
         }
-
         return "authors_template/updateAuthorForm";
     }
 
@@ -85,7 +83,7 @@ public class AuthorController {
     public String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
         authorService.deleteAuthorById(id);
         redirectAttributes.addFlashAttribute("message", "Author with id: " + id + " has been deleted");
-        redirectAttributes.addAttribute("page", currentPage + 1);
+        redirectAttributes.addAttribute("page", currentPage);
         return "redirect:/authors";
     }
 }

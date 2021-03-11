@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="styles :: styles">
-</head>
+<head th:replace="styles :: styles"></head>
 <body>
 <div th:replace="navbar :: navbar"></div>
 <div class="container">
@@ -41,7 +40,7 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item"><a class="page-link" th:href="@{categories(page=${pages[0]})}">First</a></li>
-            <li th:each="page :${pages}" th:class="(${page} == ${currentPage}+1) ?'page-item active' : 'page-item'">
+            <li th:each="page :${pages}" th:class="(${page} == ${currentPage}) ?'page-item active' : 'page-item'">
                 <a th:class="page-link" th:href="@{/categories(page=${page})}" th:text="${page}">1</a>
             </li>
             <li class="page-item"><a class="page-link" th:href="@{/categories(page=${pages.size()})}">Last</a></li>

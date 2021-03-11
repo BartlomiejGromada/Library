@@ -4,16 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.gromada.library.model.Author;
 import pl.gromada.library.model.Book;
 import pl.gromada.library.model.Category;
+import pl.gromada.library.service.AuthorService;
 import pl.gromada.library.service.BookService;
 import pl.gromada.library.service.CategoryService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class BookController {
 
     private BookService bookService;
     private CategoryService categoryService;
+    private AuthorService authorService;
     private int currentPage;
 
     @Autowired
@@ -38,9 +40,14 @@ public class BookController {
         this.categoryService = categoryService;
     }
 
+    @Autowired
+    public void setAuthorService(AuthorService authorService) {
+        this.authorService = authorService;
+    }
+
     @GetMapping
     public String allBooks(@RequestParam Optional<Integer> page, Model model) {
-        currentPage = page.orElse(1) - 1;
+        currentPage = page.orElse(1);
         Page<Book> books = bookService.findAllBooks(currentPage);
         int totalPages = books.getTotalPages();
         List<Integer> pages = IntStream.range(1, totalPages + 1).boxed().collect(Collectors.toList());
@@ -50,26 +57,62 @@ public class BookController {
         return "books_templates/books";
     }
 
-    @GetMapping("/addBookForm")
+    @GetMapping("/addForm")
     public String addBookForm(Model model) {
         model.addAttribute("book", new Book());
         List<Category> categories = categoryService.findAllCategories();
-        model.addAttribute("categories", categories);
-
+        List<Author> authors = authorService.findAllAuthors();
+        model.addAttribute("categoriesSelect", categories);
+        model.addAttribute("authorsSelect", authors);
         return "books_templates/addBookForm";
     }
 
-    @GetMapping("delete/{idBook}")
-    public String delete(@PathVariable long idBook, RedirectAttributes redirectAttributes) {
-        bookService.deleteBookById(idBook);
-        redirectAttributes.addFlashAttribute("message", "Book with id:" + idBook + " has been deleted.");
-        redirectAttributes.addAttribute("page", currentPage);
-        return "redirect:/books";
+    @PostMapping("/addForm")
+    public String addBook(@Valid @ModelAttribute Book book, BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes, Model model) {
+        if (!bindingResult.hasErrors()) {
+            bookService.addBook(book);
+            redirectAttributes.addFlashAttribute("message", "Book with id: " + book.getIdBook()
+                    + " has been added");
+            redirectAttributes.addAttribute("page", currentPage);
+            return "redirect:/books";
+        }
+        model.addAttribute("categoriesSelect", categoryService.findAllCategories());
+        model.addAttribute("authorsSelect", authorService.findAllAuthors());
+        return "books_templates/addBookForm";
     }
 
     @GetMapping("updateForm/{id}")
     public String updateForm(@PathVariable long id, Model model) {
-
+        Book book = bookService.findBookById(id).get();
+        List<Category> categories = categoryService.findAllCategories();
+        List<Author> authors = authorService.findAllAuthors();
+        model.addAttribute("book", book);
+        model.addAttribute("categoriesSelect", categories);
+        model.addAttribute("authorsSelect", authors);
         return "books_templates/updateBookForm";
+    }
+
+    @PostMapping("updateForm")
+    public String update(@Valid @ModelAttribute Book book, BindingResult bindingResult,
+                         RedirectAttributes redirectAttributes, Model model) {
+        if (!bindingResult.hasErrors()) {
+            bookService.updateBook(book);
+            redirectAttributes.addFlashAttribute("message", "Book with id:" + book.getIdBook()
+                    + " has been updated");
+            redirectAttributes.addAttribute("page", currentPage);
+            return "redirect:/books";
+        }
+        model.addAttribute("categoriesSelect", categoryService.findAllCategories());
+        model.addAttribute("authorsSelect", authorService.findAllAuthors());
+        return "books_templates/updateBookForm";
+    }
+
+    @GetMapping("delete/{id}")
+    public String delete(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        bookService.deleteBookById(id);
+        redirectAttributes.addFlashAttribute("message", "Book with id:" + id + " has been deleted");
+        redirectAttributes.addAttribute("page", currentPage);
+        return "redirect:/books";
     }
 }

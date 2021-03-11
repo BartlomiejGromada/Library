@@ -20,11 +20,19 @@ public class BookService {
     }
 
     public Page<Book> findAllBooks(int page) {
-        return bookRepo.findAll(PageRequest.of(page, 5));
+        return bookRepo.findAll(PageRequest.of(page - 1, 5));
     }
 
     public Optional<Book> findBookById(long id) {
         return bookRepo.findById(id);
+    }
+
+    public void addBook(Book book) {
+        bookRepo.save(book);
+    }
+
+    public void updateBook(Book book) {
+        bookRepo.save(book);
     }
 
     public void deleteBookById(long id) {

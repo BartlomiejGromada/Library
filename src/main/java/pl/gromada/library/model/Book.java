@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -17,11 +18,11 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idBook;
-    @NotBlank
-    @Length(min = 13, max = 13)
+    @NotBlank(message = "{pl.gromada.model.Book.isbn.NotBlank.message}")
+    @Length(min = 13, max = 13, message = "{pl.gromada.model.Book.isbn.Length.message}")
     @Column(unique = true)
     private String isbn;
-    @NotBlank
+    @NotBlank(message = "{pl.gromada.model.Book.title.message}")
     private String title;
     @ManyToOne
     @JoinColumn(name = "id_category")

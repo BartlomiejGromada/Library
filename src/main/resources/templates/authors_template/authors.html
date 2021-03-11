@@ -43,7 +43,7 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item"><a class="page-link" th:href="@{authors(page=${pages[0]})}">First</a></li>
-            <li th:each="page :${pages}" th:class="(${page} == ${currentPage+1}) ?'page-item active' : 'page-item'">
+            <li th:each="page :${pages}" th:class="(${page} == ${currentPage}) ?'page-item active' : 'page-item'">
                 <a th:class="page-link" th:href="@{/authors(page=${page})}" th:text="${page}">1</a>
             </li>
             <li class="page-item"><a class="page-link" th:href="@{/authors(page=${pages.size()})}">Last</a></li>

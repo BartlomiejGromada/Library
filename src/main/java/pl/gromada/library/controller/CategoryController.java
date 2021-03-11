@@ -30,8 +30,8 @@ public class CategoryController {
     }
 
     @GetMapping
-    public String allCategories(Optional<Integer> page, Model model) {
-        currentPage = page.orElse(1) - 1;
+    public String allCategories(@RequestParam Optional<Integer> page, Model model) {
+        currentPage = page.orElse(1);
         Page<Category> categories = categoryService.findAllCategories(currentPage);
         model.addAttribute("categories", categories);
         model.addAttribute("currentPage", currentPage);
@@ -54,9 +54,9 @@ public class CategoryController {
             categoryService.addCategory(category);
             redirectAttributes.addFlashAttribute("message", "Category with id: " + category.getIdCategory()
                     + " has been added");
+            redirectAttributes.addAttribute("page", currentPage);
             return "redirect:/categories";
         }
-
         return "categories_template/addCategoryForm";
     }
 
@@ -74,6 +74,7 @@ public class CategoryController {
             categoryService.updateCategory(category);
             redirectAttributes.addFlashAttribute("message", "Category with id: " + category.getIdCategory()
                     + " has been updated");
+            redirectAttributes.addAttribute("page", currentPage);
             return "redirect:/categories";
         }
         return "categories_template/updateCategoryForm";
@@ -83,6 +84,7 @@ public class CategoryController {
     public String deletedCategory(@PathVariable long id, RedirectAttributes redirectAttributes) {
         categoryService.deleteCategoryById(id);
         redirectAttributes.addFlashAttribute("message", "Category with id: " + id + " has been deleted");
+        redirectAttributes.addAttribute("page", currentPage);
         return "redirect:/categories";
     }
 }

@@ -24,7 +24,7 @@ public class CategoryService {
     }
 
     public Page<Category> findAllCategories(int page) {
-        return categoryRepo.findAll(PageRequest.of(page, 5));
+        return categoryRepo.findAll(PageRequest.of(page-1, 5));
     }
 
     public Category findCategoryById(long id) {

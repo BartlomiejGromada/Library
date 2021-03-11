@@ -6,7 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import pl.gromada.library.model.Author;
 import pl.gromada.library.repo.AuthorRepo;
-import pl.gromada.library.repo.BookRepo;
+
+import java.util.List;
 
 
 @Service
@@ -20,7 +21,11 @@ public class AuthorService {
     }
 
     public Page<Author> findAllAuthors(int page) {
-        return authorRepo.findAll(PageRequest.of(page, 5));
+        return authorRepo.findAll(PageRequest.of(page - 1, 5));
+    }
+
+    public List<Author> findAllAuthors() {
+        return authorRepo.findAll();
     }
 
     public Author findAuthorById(long id) {

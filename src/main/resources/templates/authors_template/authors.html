@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="styles :: styles">
 </head>
 <body>
@@ -8,7 +8,8 @@
     <header>
         <h1>Authors</h1>
     </header>
-    <a type="button" class="btn btn-primary" th:href="@{/authors/addForm}" id="addButton">Add author</a>
+    <a type="button" class="btn btn-primary" th:href="@{/authors/addForm}" id="addButton"
+       sec:authorize="hasRole('ROLE_ADMIN')">Add author</a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -16,7 +17,7 @@
             <th scope="col">FirstName</th>
             <th scope="col">LastName</th>
             <th scope="col">DateOfBirth</th>
-            <th scope="col">Operations</th>
+            <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Operations</th>
         </tr>
         </thead>
         <tbody>
@@ -25,9 +26,10 @@
             <td th:text="*{firstName}">Jan</td>
             <td th:text="*{lastName}">Brzechwa</td>
             <td th:text="*{dateOfBirth}">1992.02.02</td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <a type="button" class="btn btn-warning" th:href="@{/authors/updateForm/{id} (id=${author.idAuthor})}">Update</a>
-                <a type="button" class="btn btn-danger" th:href="@{/authors/delete/{id} (id=${author.idAuthor})}">Delete</a>
+                <a type="button" class="btn btn-danger"
+                   th:href="@{/authors/delete/{id} (id=${author.idAuthor})}">Delete</a>
             </td>
         </tr>
         </tbody>

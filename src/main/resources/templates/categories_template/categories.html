@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="styles :: styles"></head>
 <body>
 <div th:replace="navbar :: navbar"></div>
@@ -7,20 +7,21 @@
     <header>
         <h1>Categories</h1>
     </header>
-    <a type="button" class="btn btn-primary" th:href="@{/categories/addForm}" id="addButton">Add category</a>
+    <a type="button" class="btn btn-primary" th:href="@{/categories/addForm}" id="addButton"
+       sec:authorize="hasRole('ROLE_ADMIN')">Add category</a>
     <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">IdCategory</th>
             <th scope="col">Name</th>
-            <th scope="col">Operations</th>
+            <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Operations</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="category :${categories}" th:object="${category}">
             <th scope="row" th:text="*{idCategory}">1</th>
             <td th:text="*{name}">Drama</td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <a type="button" class="btn btn-warning"
                    th:href="@{/categories/updateForm/{id} (id=${category.idCategory})}">Update</a>
                 <a type="button" class="btn btn-danger"

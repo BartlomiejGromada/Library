@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="styles :: styles">
+<body>
+<div class="container" id="form">
+    <h1>Register form</h1>
+    <form action="#" th:method="post" th:action="@{/register}">
+        <div class="form-group">
+            <label for="firstname">Firstname</label>
+            <input type="email" class="form-control" id="firstname" placeholder="Firstname" th:name="firstname">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Lastname</label>
+            <input type="email" class="form-control" id="lastname" placeholder="Lastname" th:name="lastname">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Email" th:name="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" th:name="password">
+        </div>
+        <div class="form-group">
+            <label for="passwordRepeat">Password Repeat</label>
+            <input type="password" class="form-control" id="passwordRepeat" placeholder="Password Repeat">
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+</body>
+</html>

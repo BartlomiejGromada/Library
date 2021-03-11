@@ -20,19 +20,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/security").authenticated()
+                .antMatchers("/*/addForm").authenticated()
+                .antMatchers("/*/updateForm/*").authenticated()
+                .antMatchers("/*/delete/*").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                        .permitAll();
+                    .loginPage("/login")
+                    .permitAll()
+                .loginProcessingUrl("/login")
+                .permitAll();
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("bartek").password("{noop}password1").roles("ADMIN")
+                .withUser("bartek@gmail.com").password("{noop}password1").roles("ADMIN")
                 .and()
-                .withUser("iwona").password("{noop}password2").roles("USER");
+                .withUser("iwona@gmail.com").password("{noop}password2").roles("USER");
     }
 }

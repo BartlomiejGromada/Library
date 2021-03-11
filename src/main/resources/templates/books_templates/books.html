@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="styles :: styles"></head>
 <body>
 <div th:replace="navbar :: navbar"></div>
@@ -7,7 +7,8 @@
     <header>
         <h1>Books</h1>
     </header>
-    <a type="button" class="btn btn-primary" th:href="@{/books/addForm}" id="addButton">Add book</a>
+    <a type="button" class="btn btn-primary" th:href="@{/books/addForm}" id="addButton"
+       sec:authorize="hasRole('ROLE_ADMIN')">Add book</a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -16,7 +17,7 @@
             <th scope="col">Title</th>
             <th scope="col">Categories</th>
             <th scope="col">Authors</th>
-            <th scope="col">Operations</th>
+            <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Operations</th>
         </tr>
         </thead>
         <tbody>
@@ -26,7 +27,7 @@
             <td th:text="*{title}">Harry Potter</td>
             <td th:text="*{category}">Drama</td>
             <td th:text="*{author}">J.K. Rowling</td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <a type="button" class="btn btn-warning"
                    th:href="@{/books/updateForm/{id} (id=${book.idBook})}">Update</a>
                 <a type="button" class="btn btn-danger" th:href="@{/books/delete/{id} (id=${book.idBook})}">Delete</a>

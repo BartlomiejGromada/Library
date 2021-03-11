@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.gromada.library.model.Author;
@@ -53,7 +52,8 @@ public class AuthorController {
                             RedirectAttributes redirectAttributes) {
         if (!bindingResult.hasErrors()) {
             authorService.addAuthor(author);
-            redirectAttributes.addFlashAttribute("message", "Author with id: " + author.getIdAuthor() + " has benn added");
+            redirectAttributes.addFlashAttribute("message", "Author with id: " + author.getIdAuthor()
+                    + " has benn added");
             redirectAttributes.addAttribute("page", currentPage + 1);
             return "redirect:/authors";
         }
@@ -70,9 +70,10 @@ public class AuthorController {
     @PostMapping("/updateForm")
     public String updateAuthor(@Valid @ModelAttribute Author author, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
-        if(!bindingResult.hasErrors()) {
+        if (!bindingResult.hasErrors()) {
             authorService.updateAuthor(author);
-            redirectAttributes.addFlashAttribute("message", "Author with id: " + author.getIdAuthor() + " has been updated");
+            redirectAttributes.addFlashAttribute("message", "Author with id: " + author.getIdAuthor()
+                    + " has been updated");
             redirectAttributes.addAttribute("page", currentPage + 1);
             return "redirect:/authors";
         }

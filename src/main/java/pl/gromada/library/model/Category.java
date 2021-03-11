@@ -18,7 +18,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idCategory;
-    @NotBlank
+    @NotBlank(message = "{pl.gromada.model.Category.name.message}")
     @Column(unique = true)
     private String name;
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)

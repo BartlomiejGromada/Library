@@ -12,6 +12,7 @@ footer {
 
 .container {
     height: 89%;
+    margin-top: 50px;
 }
 
 table {
@@ -21,9 +22,6 @@ table {
 
 #addButton {
     margin: 10px;
-    position: absolute;
-    right: 22%;
-    top: 5%;
 }
 
 .nav-item {
@@ -43,4 +41,18 @@ table {
 
 #form {
     margin-top: 200px;
+}
+
+#userInfo {
+    padding-top: 10px;
+}
+
+#div {
+    margin-top: 20px;
+}
+
+.topnav-right {
+    position: absolute;
+    right: 20%;
+    margin-top: 5px;
 }

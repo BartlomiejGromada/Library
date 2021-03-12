@@ -9,7 +9,6 @@ import pl.gromada.library.repo.AuthorRepo;
 
 import java.util.List;
 
-
 @Service
 public class AuthorService {
 
@@ -29,7 +28,7 @@ public class AuthorService {
     }
 
     public Author findAuthorById(long id) {
-        return authorRepo.findById(id).get();
+        return authorRepo.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
     public void addAuthor(Author author) {
@@ -37,6 +36,7 @@ public class AuthorService {
     }
 
     public void deleteAuthorById(long id) {
+        authorRepo.findById(id).orElseThrow(IllegalArgumentException::new);
         authorRepo.deleteById(id);
     }
 

@@ -84,7 +84,7 @@ public class BookController {
 
     @GetMapping("updateForm/{id}")
     public String updateForm(@PathVariable long id, Model model) {
-        Book book = bookService.findBookById(id).get();
+        Book book = bookService.findBookById(id);
         List<Category> categories = categoryService.findAllCategories();
         List<Author> authors = authorService.findAllAuthors();
         model.addAttribute("book", book);

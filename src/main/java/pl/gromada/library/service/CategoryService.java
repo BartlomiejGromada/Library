@@ -24,11 +24,11 @@ public class CategoryService {
     }
 
     public Page<Category> findAllCategories(int page) {
-        return categoryRepo.findAll(PageRequest.of(page-1, 5));
+        return categoryRepo.findAll(PageRequest.of(page - 1, 5));
     }
 
     public Category findCategoryById(long id) {
-        return categoryRepo.findById(id).get();
+        return categoryRepo.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
     public void addCategory(Category category) {
@@ -40,6 +40,7 @@ public class CategoryService {
     }
 
     public void deleteCategoryById(long id) {
+        categoryRepo.findById(id).orElseThrow(IllegalArgumentException::new);
         categoryRepo.deleteById(id);
     }
 }

@@ -23,8 +23,8 @@ public class BookService {
         return bookRepo.findAll(PageRequest.of(page - 1, 5));
     }
 
-    public Optional<Book> findBookById(long id) {
-        return bookRepo.findById(id);
+    public Book findBookById(long id) {
+        return bookRepo.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
     public void addBook(Book book) {
@@ -36,6 +36,7 @@ public class BookService {
     }
 
     public void deleteBookById(long id) {
+        bookRepo.findById(id).orElseThrow(IllegalArgumentException::new);
         bookRepo.deleteById(id);
     }
 

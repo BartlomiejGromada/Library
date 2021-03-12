@@ -25,4 +25,6 @@ VALUES ('1234345674567', 'Witaj Barabaszu', 3, 1),
        ('8987897654324', 'Wiersze', 7, 5),
        ('7845654564345', 'Calineczka', 1, 3);
 
-
+INSERT INTO account_role(role, description)
+VALUES ('ROLE_USER', 'Default role for user'),
+       ('ROLE_ADMIN', 'User with all permissions');

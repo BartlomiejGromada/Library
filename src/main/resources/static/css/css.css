@@ -1,6 +1,6 @@
 html, body {
-    height: 100%;
     margin: 0;
+    height: 95%;
 }
 
 footer {
@@ -51,8 +51,17 @@ table {
     margin-top: 20px;
 }
 
+#div2 {
+    margin-top: 20px;
+}
+
 .topnav-right {
     position: absolute;
     right: 20%;
     margin-top: 5px;
+}
+
+#otherForm {
+    position: relative;
+    left: 80%;
 }

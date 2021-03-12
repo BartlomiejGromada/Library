@@ -23,19 +23,24 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    @GetMapping("/login")
+    public String loginForm() {
+        return "loginForm";
+    }
+
     @GetMapping("/register")
     public String register(Model model) {
-        model.addAttribute("user", new Account());
+        model.addAttribute("account", new Account());
         return "registerForm";
     }
 
     @PostMapping("/register")
-    public String addUser(@Valid @ModelAttribute Account account, BindingResult bindResult) {
+    public String addUser(@Valid @ModelAttribute Account account, BindingResult bindResult, Model model) {
         if (bindResult.hasErrors()) {
             return "registerForm";
-        }
-        else {
+        } else {
             accountService.addWithDefaultRole(account);
+            model.addAttribute("successRegister", true);
             return "/loginForm";
         }
     }

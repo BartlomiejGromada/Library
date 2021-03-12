@@ -24,6 +24,7 @@
             </li>
             <div class="topnav-right">
                 <a th:href="@{/login}" class="btn btn-secondary" sec:authorize="!isAuthenticated()">Login</a>
+                <a th:href="@{/register}" class="btn btn-secondary" sec:authorize="!isAuthenticated()">Register</a>
                 <form method="post" th:action="@{/logout}" sec:authorize="isAuthenticated()">
                     <input type="submit" th:href="@{/logout}" class="btn btn-secondary" th:value="Logout"/>
                 </form>

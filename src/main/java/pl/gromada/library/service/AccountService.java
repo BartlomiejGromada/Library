@@ -32,7 +32,6 @@ public class AccountService {
     }
 
     public void addWithDefaultRole(Account account) {
-        System.out.println(account);
         AccountRole defaultRole = accountRoleRepo.findByRole(DEFAULT_ROLE);
         account.getRoles().add(defaultRole);
         String passwordHash = passwordEncoder.encode(account.getPassword());

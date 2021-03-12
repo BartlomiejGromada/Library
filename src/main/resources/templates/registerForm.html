@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="styles :: styles">
+<head th:replace="styles :: styles"></head>
 <body>
+<div th:replace="navbar :: navbar"></div>
 <div class="container" id="form">
     <h1>Register form</h1>
-    <form action="#" th:method="post" th:action="@{/register}">
+    <form action="#" th:method="post" th:action="@{/register}" th:object="${account}">
         <div class="form-group">
             <label for="firstname">Firstname</label>
-            <input type="text" class="form-control" id="firstname" placeholder="Firstname" th:name="firstName">
+            <input type="text" class="form-control" id="firstname" placeholder="Firstname" th:name="firstName"
+                   th:autofocus="true"/>
+            <p th:if="${#fields.hasErrors()}" th:errors="*{firstName}" class="valid-error">Firstname errors</p>
         </div>
         <div class="form-group">
             <label for="lastname">Lastname</label>
-            <input type="text" class="form-control" id="lastname" placeholder="Lastname" th:name="lastName">
+            <input type="text" class="form-control" id="lastname" placeholder="Lastname" th:name="lastName"/>
+            <p th:if="${#fields.hasErrors()}" th:errors="*{lastName}" class="valid-error">Lastname errors</p>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Email" th:name="email">
+            <input type="email" class="form-control" id="email" placeholder="Email" th:name="email"/>
+            <p th:if="${#fields.hasErrors()}" th:errors="*{email}" class="valid-error">Email errors</p>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password" th:name="password">
+            <input type="password" class="form-control" id="password" placeholder="Password" th:name="password"/>
+            <p th:if="${#fields.hasErrors()}" th:errors="*{password}" class="valid-error">Password errors</p>
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
     </form>

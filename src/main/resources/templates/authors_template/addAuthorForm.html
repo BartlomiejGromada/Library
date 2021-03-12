@@ -11,7 +11,8 @@
     <form th:object="${author}" th:method="post" action="#" th:action="@{/authors/addForm}">
         <div class="form-group">
             <label for="firstName">Firstname</label>
-            <input type="text" class="form-control" id="firstName" th:name="firstName" placeholder="Enter firstname"/>
+            <input type="text" class="form-control" id="firstName" th:name="firstName" placeholder="Enter firstname"
+                   th:autofocus="true"/>
             <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="valid-error">Name Error</p>
         </div>
         <div class="form-group">
@@ -22,7 +23,8 @@
         <div class="form-group">
             <label for="dateOfBirth">DateOfBirth</label>
             <input type="date" class="form-control" id="dateOfBirth" th:name="dateOfBirth"/>
-            <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="valid-error">DateOfBirth errors</p>
+            <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="valid-error">DateOfBirth
+                errors</p>
         </div>
         <button type="submit" class="btn btn-primary">Add</button>
     </form>

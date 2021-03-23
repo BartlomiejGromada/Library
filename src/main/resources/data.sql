@@ -31,7 +31,7 @@ VALUES ('ROLE_USER', 'Default role for user'),
 
 INSERT INTO account(email, first_name, last_name, password)
 VALUES ('bartek@wp.pl', 'Bartek', 'Gromada',
-        '{bcrypt}$2y$12$8W973MF5dP2JHHT.Ofl0EOJMhZd49zrHxg.K/bzttzqEuF1EfWEAy');
+        '{bcrypt}$2y$12$zHo/7b3UTJU5ZRxf20.k1e18oCz0TdzirfzY7Gr6eeFslDz2U14cq');
 
 INSERT INTO account_roles(account_id_account, roles_id_user_role)
 VALUES (1, 2);
